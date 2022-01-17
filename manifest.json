@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "Tiny Bookmark Tab",
+  "description": "description",
+  "version": "0.0.1",
+  "permissions": [
+    "bookmarks"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "options_ui": {
+    "page": "tiny.html",
+    "open_in_tab": true
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/icon.png",
+      "32": "icons/icon.png"
+    }
+  },
+  "icons": {
+    "64": "icons/icon.png"
+  }
+}
