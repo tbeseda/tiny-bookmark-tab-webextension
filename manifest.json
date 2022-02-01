@@ -1,8 +1,16 @@
 {
   "manifest_version": 2,
   "name": "Tiny Bookmark Tab",
-  "description": "description",
-  "version": "0.0.1",
+  "short_name": "Bookmark Tab",
+  "description": "A fast tree-list of browser bookmarks.",
+  "version": "0.0.2",
+  "author": "tbeseda",
+  "homepage": "https://github.com/tbeseda/tiny-bookmark-tab-webextension",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tiny-bookmark-tab@tbeseda.com"
+    }
+  },
   "permissions": [
     "bookmarks"
   ],
@@ -15,13 +23,26 @@
     "page": "tiny.html",
     "open_in_tab": true
   },
+  "chrome_url_overrides": {
+    "newtab": "tiny.html"
+  },
   "browser_action": {
-    "default_icon": {
-      "16": "icons/icon.png",
-      "32": "icons/icon.png"
-    }
+    "default_icon": "icon.svg",
+    "theme_icons": [
+      {
+        "light": "icon.svg",
+        "dark": "icon-dark.svg",
+        "size": 16
+      },
+      {
+        "light": "icon.svg",
+        "dark": "icon-dark.svg",
+        "size": 32
+      }
+    ]
   },
   "icons": {
-    "64": "icons/icon.png"
+    "48": "icon-dark.svg",
+    "96": "icon-dark.svg"
   }
 }
