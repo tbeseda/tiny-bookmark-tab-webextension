@@ -1,36 +1,41 @@
-function createList(bookmarks) {
-  const root = document.createElement('ul')
+function List(bookmarks) {
+  return `
+<ul>
+  ${bookmarks
+    .map(
+      (bookmark) => `
+        ${bookmark.type === 'bookmark' ? Item(bookmark) : ''}
+        ${
+          bookmark.type === 'folder' && bookmark.children.length > 0
+            ? Folder(bookmark)
+            : ''
+        }
+      `
+    )
+    .join('')}
+</ul>
+  `.trim()
+}
 
-  for (const bookmark of bookmarks) {
-    const item = document.createElement('li')
+function Item(bookmark) {
+  return `
+<li><a class="link" href="${bookmark.url}">${bookmark.title}</a></li>
+  `.trim()
+}
 
-    if (bookmark.type === 'bookmark') {
-      const contents = document.createElement('a')
-      const title = document.createTextNode(bookmark.title)
-      contents.setAttribute('href', bookmark.url)
-      contents.appendChild(title)
-
-      item.appendChild(contents)
-      root.appendChild(item)
-    } else if (bookmark.type === 'folder' && bookmark.children.length > 0) {
-      const contents = document.createTextNode(`${bookmark.title} (${bookmark.children.length})`)
-
-      item.appendChild(contents)
-      root.appendChild(item)
-      root.appendChild(createList(bookmark.children))
-    }
-  }
-
-  return root
+function Folder(bookmark) {
+  return `
+<li>
+  <strong class="title">${bookmark.title} (${bookmark.children.length})</strong>
+  ${List(bookmark.children)}
+</li>
+  `.trim()
 }
 
 /** @param {import('webextension-polyfill').Browser} browser */
 async function main(browser) {
   const tree = await browser.bookmarks.getTree()
-  const list = createList(tree[0].children)
-
-  const main = document.getElementById('main')
-  main.appendChild(list)
+  document.getElementById('main').innerHTML = List(tree[0].children)
 }
 
 // @ts-ignore
