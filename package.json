@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "dev": "npm run css",
     "css": "npx tailwindcss -i ./tiny-src.css -o ./assets/tiny.css --watch"
