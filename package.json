@@ -1,5 +1,10 @@
 {
+  "scripts": {
+    "dev": "npm run css",
+    "css": "npx tailwindcss -i ./assets/tiny-src.css -o ./assets/tiny.css --watch"
+  },
   "devDependencies": {
-    "@types/webextension-polyfill": "^0.8.2"
+    "@types/webextension-polyfill": "^0.8.2",
+    "tailwindcss": "^3.0.23"
   }
 }

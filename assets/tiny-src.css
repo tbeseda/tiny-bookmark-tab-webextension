@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sans-font: -apple-system, BlinkMacSystemFont, Arial, Helvetica,
+    'Helvetica Neue', sans-serif;
+}
+
+html {
+  font-family: var(--sans-font);
+}
