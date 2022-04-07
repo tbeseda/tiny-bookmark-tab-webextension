@@ -534,9 +534,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(203 213 225 / var(--tw-border-opacity));
 }
 
-.bg-gray-100 {
+.bg-white {
   --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .p-1 {

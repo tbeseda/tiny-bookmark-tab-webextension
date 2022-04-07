@@ -3,7 +3,7 @@
   "name": "Tiny Bookmark Tab",
   "short_name": "Bookmark Tab",
   "description": "A fast tree-list of browser bookmarks.",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "author": "tbeseda",
   "homepage": "https://github.com/tbeseda/tiny-bookmark-tab-webextension",
   "browser_specific_settings": {
@@ -16,7 +16,7 @@
   ],
   "background": {
     "scripts": [
-      "background.js"
+      "assets/background.js"
     ]
   },
   "options_ui": {
@@ -27,22 +27,22 @@
     "newtab": "tiny.html"
   },
   "browser_action": {
-    "default_icon": "icon.svg",
+    "default_icon": "assets/icon.svg",
     "theme_icons": [
       {
-        "light": "icon.svg",
-        "dark": "icon-dark.svg",
+        "light": "assets/icon.svg",
+        "dark": "assets/icon-dark.svg",
         "size": 16
       },
       {
-        "light": "icon.svg",
-        "dark": "icon-dark.svg",
+        "light": "assets/icon.svg",
+        "dark": "assets/icon-dark.svg",
         "size": 32
       }
     ]
   },
   "icons": {
-    "48": "icon-dark.svg",
-    "96": "icon-dark.svg"
+    "48": "assets/icon-dark.svg",
+    "96": "assets/icon-dark.svg"
   }
 }
