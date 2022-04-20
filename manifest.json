@@ -3,7 +3,7 @@
   "name": "Tiny Bookmark Tab",
   "short_name": "Bookmark Tab",
   "description": "A fast tree-list of browser bookmarks.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "tbeseda",
   "homepage": "https://github.com/tbeseda/tiny-bookmark-tab-webextension",
   "browser_specific_settings": {
