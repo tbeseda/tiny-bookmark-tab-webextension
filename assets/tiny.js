@@ -1,79 +1,75 @@
 function Favicon(bookmark) {
-  const url = new URL(bookmark.url)
+	const url = new URL(bookmark.url);
 
-  if (url.hostname.length > 0) {
-    const domain = url.hostname
-    const imageUrl = `https://icons.duckduckgo.com/ip3/${domain}.ico`
+	if (url.hostname.length > 0) {
+		const domain = url.hostname;
+		const imageUrl = `https://icons.duckduckgo.com/ip3/${domain}.ico`;
 
-    return `
-<img
-  class="h-3 w-3"
-  src="${imageUrl}"
-  alt="${domain} favicon"
->
-    `.trim()
-  } else {
-    return ''
-  }
+		return `<img src="${imageUrl}" alt="${domain} favicon">`.trim();
+	}
+
+	return "";
 }
 
 function List(bookmarks) {
-  return `
-<ul
-  class="pl-2"
->
+	console.table(bookmarks);
+	return `
+<ul>
   ${bookmarks
-    .map(
-      (bookmark) => `
-        ${bookmark.type === 'bookmark' ? Item(bookmark) : ''}
+		.map(
+			(bookmark) => `
         ${
-          bookmark.type === 'folder' && bookmark.children.length > 0
-            ? Folder(bookmark)
-            : ''
-        }
-      `
-    )
-    .join('')}
+					typeof bookmark.children === "undefined"
+						? Item(bookmark)
+						: Folder(bookmark)
+				}
+      `,
+		)
+		.join("")}
 </ul>
-  `.trim()
+  `.trim();
 }
 
 function Item(bookmark) {
-  return `
-<li
-  class="ml-1 pl-2 border-l-2 border-slate-300 dark:border-gray-700"
->
-  <a
-    class="flex items-center gap-x-2 px-1 py-0.5 hover:bg-gray-200 dark:hover:bg-slate-700"
-    href="${bookmark.url}"
-  >
+	return `
+<li>
+  <a href="${bookmark.url}">
     ${Favicon(bookmark)}
-    <span class="truncate text-blue-500 dark:text-blue-300">${bookmark.title}</span>
+    <span>${bookmark.title}</span>
   </a>
 </li>
-  `.trim()
+  `.trim();
 }
 
 function Folder(bookmark) {
-  return `
-<li
-  class="mt-2"
->
-  <span
-    class="font-semibold text-gray-600 dark:text-gray-200"
-  >
+	return `
+<li>
+  <span>
     ${bookmark.title} (${bookmark.children.length})
   </span>
   ${List(bookmark.children)}
 </li>
-  `.trim()
+  `.trim();
 }
 
 /** @param {import('webextension-polyfill').Browser} browser */
 async function main(browser) {
-  const tree = await browser.bookmarks.getTree()
-  document.getElementById('main').innerHTML = List(tree[0].children)
+	const $main = document.getElementById("main");
+	if (!$main) throw new Error("No #main element found");
+	$main.innerHTML = "Loading...";
+	const tree = await browser.bookmarks.getTree();
+	$main.innerHTML = List(tree[0].children);
 }
 
-// @ts-ignore
-main(window.browser)
+console.log("booting");
+
+document.addEventListener("DOMContentLoaded", function () {
+	// TODO: bifurcate for Firefox vs Chrome
+	if (typeof browser === "undefined") {
+		// Chrome
+		main(chrome);
+	} else {
+		// Firefox
+		main(browser);
+	}
+});

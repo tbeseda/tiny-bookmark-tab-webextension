@@ -20,9 +20,7 @@ Display browser bookmarks in a tree-list. Fast.
 
 ## Development
 
-```bash
-npm run dev
-```
+There's an index.html and assets/tiny.js - two files. The way Tim intended.
 
 ## Release
 

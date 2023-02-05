@@ -1,48 +1,44 @@
 {
-  "manifest_version": 2,
-  "name": "Tiny Bookmark Tab",
-  "short_name": "Bookmark Tab",
-  "description": "A fast tree-list of browser bookmarks.",
-  "version": "0.2.0",
-  "author": "tbeseda",
-  "homepage": "https://github.com/tbeseda/tiny-bookmark-tab-webextension",
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "tiny-bookmark-tab@tbeseda.com"
-    }
-  },
-  "permissions": [
-    "bookmarks"
-  ],
-  "background": {
-    "scripts": [
-      "assets/background.js"
-    ]
-  },
-  "options_ui": {
-    "page": "tiny.html",
-    "open_in_tab": true
-  },
-  "chrome_url_overrides": {
-    "newtab": "tiny.html"
-  },
-  "browser_action": {
-    "default_icon": "assets/icon.svg",
-    "theme_icons": [
-      {
-        "light": "assets/icon.svg",
-        "dark": "assets/icon-dark.svg",
-        "size": 16
-      },
-      {
-        "light": "assets/icon.svg",
-        "dark": "assets/icon-dark.svg",
-        "size": 32
-      }
-    ]
-  },
-  "icons": {
-    "48": "assets/icon-dark.svg",
-    "96": "assets/icon-dark.svg"
-  }
+	"manifest_version": 3,
+	"name": "Tiny Bookmark Tab",
+	"short_name": "Bookmark Tab",
+	"description": "A fast tree-list of browser bookmarks.",
+	"version": "0.3.0",
+	"author": "tbeseda",
+	"homepage_url": "https://github.com/tbeseda/tiny-bookmark-tab-webextension",
+	"permissions": [
+		"bookmarks"
+	],
+	// "background": {
+	// 	"service_worker": "assets/background.js",
+	// 	"type": "module"
+	// },
+	// "options_ui": {
+	// 	"page": "tiny.html",
+	// 	"open_in_tab": true
+	// },
+	"chrome_url_overrides": {
+		"newtab": "tiny.html"
+	},
+	// "icons": {
+	// 	"48": "assets/icon-dark.svg",
+	// 	"96": "assets/icon-dark.svg"
+	// },
+	"action": {
+		// "browser_style": true,
+		"default_title": "Bookmark Tab",
+		"default_icon": "assets/icon-dark.png",
+		// "theme_icons": [
+		// 	{
+		// 		"light": "assets/icon.svg",
+		// 		"dark": "assets/icon-dark.svg",
+		// 		"size": 16
+		// 	},
+		// 	{
+		// 		"light": "assets/icon.svg",
+		// 		"dark": "assets/icon-dark.svg",
+		// 		"size": 32
+		// 	}
+		// ]
+	}
 }
