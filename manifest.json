@@ -25,20 +25,20 @@
 	// 	"96": "assets/icon-dark.svg"
 	// },
 	"action": {
-		// "browser_style": true,
+		"browser_style": true,
 		"default_title": "Bookmark Tab",
-		"default_icon": "assets/icon-dark.png",
-		// "theme_icons": [
-		// 	{
-		// 		"light": "assets/icon.svg",
-		// 		"dark": "assets/icon-dark.svg",
-		// 		"size": 16
-		// 	},
-		// 	{
-		// 		"light": "assets/icon.svg",
-		// 		"dark": "assets/icon-dark.svg",
-		// 		"size": 32
-		// 	}
-		// ]
+		"default_icon": "assets/icon.svg",
+		"theme_icons": [
+			{
+				"light": "assets/icon.svg",
+				"dark": "assets/icon-dark.svg",
+				"size": 16
+			},
+			{
+				"light": "assets/icon.svg",
+				"dark": "assets/icon-dark.svg",
+				"size": 32
+			}
+		]
 	}
 }
