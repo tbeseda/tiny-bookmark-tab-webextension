@@ -4,6 +4,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Tiny Bookmark Tab</title>
 	<style>
+		html {
+			color-scheme: light dark;
+		}
 		body {
 			background-color: #f5f5f5;
 			font-family: sans-serif;
@@ -24,6 +27,17 @@
 		a {
 			color: #666;
 			text-decoration: none;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			* {
+				background-color: inherit;
+				color: inherit;
+			}
+			html,
+			img:not([src$='.svg']) {
+				filter: invert(1) hue-rotate(180deg);
+			}
 		}
 	</style>
 </head>
