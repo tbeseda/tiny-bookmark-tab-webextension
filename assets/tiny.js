@@ -3,7 +3,9 @@ function Favicon(bookmark) {
 
 	if (url.hostname.length > 0) {
 		const domain = url.hostname;
-		const imageUrl = `https://icons.duckduckgo.com/ip3/${domain}.ico`;
+		// * options: https://blog.jim-nielsen.com/2021/displaying-favicons-for-any-domain/
+		const imageUrl = `https://icons.duckduckgo.com/ip3/${domain}.ico`; // more reliable
+		// const imageUrl = `https://www.google.com/s2/favicons?domain=${domain}`; // "real" png
 
 		return `<img height=20 width=20 src="${imageUrl}" alt="${domain} favicon">`.trim();
 	}
@@ -41,9 +43,7 @@ function Item(bookmark) {
 function Folder(bookmark) {
 	return `
 <li>
-	<span>
-		${bookmark.title} (${bookmark.children.length})
-	</span>
+	<span>${bookmark.title} (${bookmark.children.length})</span>
 	${List(bookmark.children)}
 </li>`;
 }
