@@ -14,38 +14,31 @@ function Favicon(bookmark) {
 }
 
 function List(bookmarks) {
-	return `
-<ul>
-	${bookmarks
-		.map(
-			(bookmark) => `
-				${
-					typeof bookmark.children === "undefined"
-						? Item(bookmark)
-						: Folder(bookmark)
-				}
-			`,
+	return bookmarks
+		.map((bookmark) =>
+			typeof bookmark.children === "undefined"
+				? Item(bookmark)
+				: Folder(bookmark),
 		)
-		.join("")}
-</ul>`;
+		.join("");
 }
 
 function Item(bookmark) {
 	return `
-<li>
+<div>
 	<a href="${bookmark.url}">
 		${Favicon(bookmark)}
 		<span>${bookmark.title}</span>
 	</a>
-</li>`;
+</div>`;
 }
 
 function Folder(bookmark) {
 	return `
-<li>
-	<span>${bookmark.title} (${bookmark.children.length})</span>
+<details>
+	<summary>${bookmark.title} (${bookmark.children.length})</summary>
 	${List(bookmark.children)}
-</li>`;
+</details>`;
 }
 
 /** @param {import('webextension-polyfill').Browser} browser */
