@@ -8,13 +8,13 @@ Display browser bookmarks in a tree-list. Fast.
 
 ## Screenshots
 
-![light](./screen_light.png)
+![light](./static/screen_light.png)
 
 <details>
 
 <summary>Automatic dark mode</summary>
 
-![dark](./screen_dark.png)
+![dark](./static/screen_dark.png)
 
 </details>
 
