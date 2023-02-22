@@ -22,5 +22,11 @@
 		"default_icon": "assets/icon-64.png",
 		"default_area": "personaltoolbar",
 		"default_popup": "tiny.html"
+	},
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "tiny-bookmark-tab@tbeseda.com",
+			"strict_min_version": "109.0"
+		}
 	}
 }
