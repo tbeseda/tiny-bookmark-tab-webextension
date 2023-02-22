@@ -9,21 +9,13 @@
 	"permissions": [
 		"bookmarks"
 	],
-	// "background": {
-	// 	"service_worker": "assets/background.js",
-	// 	"type": "module"
-	// },
-	// "options_ui": {
-	// 	"page": "tiny.html",
-	// 	"open_in_tab": true
-	// },
 	"chrome_url_overrides": {
 		"newtab": "tiny.html"
 	},
-	// "icons": {
-	// 	"48": "assets/icon-dark.svg",
-	// 	"96": "assets/icon-dark.svg"
-	// },
+	"icons": {
+		"48": "assets/icon-dark.svg",
+		"96": "assets/icon-dark.svg"
+	},
 	"action": {
 		"browser_style": true,
 		"default_title": "Bookmark Tab",

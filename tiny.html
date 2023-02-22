@@ -6,22 +6,32 @@
 	<title>Tiny Bookmark Tab</title>
 	<style>
 		html {
+			color-scheme: light dark;
 			--spacing: 1.65rem;
 			--radius: 8px;
-			color-scheme: light dark;
+			--bg: #f5f5f5;
+			--primary: #333;
+			--secondary: #444;
+			--border: #DEE1E6;
+			--button: #999;
 		}
 		body {
 			padding: 1rem 0;
 			margin: 0;
-			background-color: #f5f5f5;
+			background-color: var(--bg);
 			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 			font-size: 16px;
-			color: #333;
+			color: var(--primary);
 			line-height: 1.65;
 		}
+
 		main > * {
 			max-width: 36rem;
 			margin: 0 auto;
+		}
+
+		main > ul > li {
+			margin-bottom: 1.5rem;
 		}
 
 		li > a {
@@ -30,7 +40,7 @@
 			align-items: center;
 			gap: 0.33rem;
 			overflow: ellipsis;
-			color: #444;
+			color: var(--secondary);
 			text-decoration: none;
 		}
 
@@ -45,6 +55,7 @@
 			display: block;
 			position: relative;
 			padding-left: calc(2 * var(--spacing) - var(--radius) - 2px);
+			margin-bottom: 0.2rem;
 		}
 
 		li ul {
@@ -53,7 +64,7 @@
 		}
 
 		li ul li {
-			border-left: 2px solid #ddd;
+			border-left: 2px solid var(--border);
 		}
 
 		li ul li:last-child {
@@ -68,7 +79,7 @@
 			left: -2px;
 			width: calc(var(--spacing) + 2px);
 			height: calc(var(--spacing) + 1px);
-			border: solid #ddd;
+			border: solid var(--border);
 			border-width: 0 0 2px 2px;
 		}
 
@@ -93,14 +104,14 @@
 			width: calc(2 * var(--radius));
 			height: calc(2 * var(--radius));
 			border-radius: 50%;
-			background: #ddd;
+			background: var(--border);
 		}
 
 		summary::before {
 			content: '+';
 			z-index: 1;
-			background: #999;
-			color: #fff;
+			background: var(--button);
+			color: var(--bg);
 			line-height: calc(2 * var(--radius) - 2px);
 			text-align: center;
 			font-size: 0.9rem;
@@ -108,20 +119,17 @@
 
 		details[open] > summary::before {
 			content: '−';
-			background: #ccc;
+			background: var(--border);
 		}
 
 		@media (prefers-color-scheme: dark) {
-			* {
-				background-color: inherit;
-				color: inherit;
-			}
 			html {
-				filter: invert(1) hue-rotate(180deg);
+				--bg: #202124;
+				--primary: #f5f5f5;
+				--secondary: #bbb;
+				--border: #35363A;
+				--button: #606164;
 			}
-			/* img:is([src$='.ico']) {
-				TODO: fix inverted bg color?
-			} */
 		}
 	</style>
 </head>
