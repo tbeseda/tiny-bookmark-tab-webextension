@@ -52,14 +52,15 @@ async function main(browser) {
 
 	const tree = await browser.bookmarks.getTree();
 
-	$main.innerHTML = List(tree[0].children?.reverse());
+	const sorted = tree[0].children.sort((a, b) => {
+		return b.children?.length - a.children?.length;
+	});
+
+	$main.innerHTML = List(sorted);
 	$main.querySelector("details")?.setAttribute("open", "");
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-	if (typeof chrome !== "undefined") {
-		main(chrome);
-	} else if (typeof browser !== "undefined") {
-		main(browser); // Firefox
-	}
+	// @ts-ignore
+	main(chrome || browser); // Firefox has both, Chrome is missing browser
 });

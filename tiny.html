@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -6,7 +7,7 @@
 	<style>
 		html {
 			--spacing: 1.65rem;
-			--radius: 10px;
+			--radius: 8px;
 			color-scheme: light dark;
 		}
 		body {
@@ -46,20 +47,20 @@
 			padding-left: calc(2 * var(--spacing) - var(--radius) - 2px);
 		}
 
-		ul ul {
+		li ul {
 			margin-left: calc(var(--radius) - var(--spacing));
 			padding-left: 0;
 		}
 
-		ul ul li {
+		li ul li {
 			border-left: 2px solid #ddd;
 		}
 
-		ul ul li:last-child {
+		li ul li:last-child {
 			border-color: transparent;
 		}
 
-		ul ul li::before {
+		li ul li::before {
 			content: '';
 			display: block;
 			position: absolute;
@@ -102,10 +103,12 @@
 			color: #fff;
 			line-height: calc(2 * var(--radius) - 2px);
 			text-align: center;
+			font-size: 0.9rem;
 		}
 
 		details[open] > summary::before {
 			content: '−';
+			background: #ccc;
 		}
 
 		@media (prefers-color-scheme: dark) {
