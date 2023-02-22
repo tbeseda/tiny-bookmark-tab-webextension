@@ -14,31 +14,34 @@ function Favicon(bookmark) {
 }
 
 function List(bookmarks) {
-	return bookmarks
+	const markup = bookmarks
 		.map((bookmark) =>
 			typeof bookmark.children === "undefined"
 				? Item(bookmark)
 				: Folder(bookmark),
 		)
 		.join("");
+	return `<ul>${markup}</ul>`;
 }
 
 function Item(bookmark) {
 	return `
-<div>
+<li>
 	<a href="${bookmark.url}">
 		${Favicon(bookmark)}
 		<span>${bookmark.title}</span>
 	</a>
-</div>`;
+</li>`;
 }
 
 function Folder(bookmark, open = false) {
 	return `
-<details ${open ? "open" : ""}>
-	<summary>${bookmark.title} (${bookmark.children.length})</summary>
-	${List(bookmark.children)}
-</details>`;
+<li>
+	<details ${open ? "open" : ""}>
+		<summary>${bookmark.title} (${bookmark.children.length})</summary>
+		${List(bookmark.children)}
+	</details>
+</li>`;
 }
 
 async function main(browser) {
