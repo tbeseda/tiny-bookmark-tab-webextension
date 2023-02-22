@@ -33,15 +33,14 @@ function Item(bookmark) {
 </div>`;
 }
 
-function Folder(bookmark) {
+function Folder(bookmark, open = false) {
 	return `
-<details>
+<details ${open ? "open" : ""}>
 	<summary>${bookmark.title} (${bookmark.children.length})</summary>
 	${List(bookmark.children)}
 </details>`;
 }
 
-/** @param {import('webextension-polyfill').Browser} browser */
 async function main(browser) {
 	const $main = document.getElementById("main");
 	if (!$main) throw new Error("No #main element found");
@@ -51,6 +50,7 @@ async function main(browser) {
 	const tree = await browser.bookmarks.getTree();
 
 	$main.innerHTML = List(tree[0].children?.reverse());
+	$main.querySelector("details")?.setAttribute("open", "");
 }
 
 document.addEventListener("DOMContentLoaded", function () {
