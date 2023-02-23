@@ -2,7 +2,9 @@
 
 Display browser bookmarks in a tree-list. Fast.
 
-[Install for Firefox](https://addons.mozilla.org/en-US/firefox/addon/tiny-bookmark-tab/)
+[Firefox Install](https://addons.mozilla.org/en-US/firefox/addon/tiny-bookmark-tab/)
+
+[Chrome Install](https://chrome.google.com/webstore/detail/tiny-bookmark-tab/miihjlhjnppilabnfhpoglmldbkjglcc)
 
 <small>Extension icon from [vmware/clarity](https://github.com/vmware/clarity).</small>
 
