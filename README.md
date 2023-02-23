@@ -8,6 +8,8 @@ Display browser bookmarks in a tree-list. Fast.
 
 <small>Extension icon from [vmware/clarity](https://github.com/vmware/clarity).</small>
 
+<small>Tree CSS from [Kate Rose Morley](https://iamkate.com/code/tree-views/).</small>
+
 ## Screenshots
 
 ![light](./static/screen_light.png)
