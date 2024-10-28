@@ -31,7 +31,7 @@ function Item(bookmark) {
 	return `
 <li>
 	<a href="${bookmark.url}" ${isPopup ? 'target="_blank"' : ""}>
-		${Favicon(bookmark)}
+		<!-- ${Favicon(bookmark)} -->
 		<span>${bookmark.title}</span>
 	</a>
 </li>`;
