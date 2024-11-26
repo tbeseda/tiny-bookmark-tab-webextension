@@ -6,8 +6,8 @@ function Favicon(bookmark) {
 	if (url.hostname.length > 0) {
 		const domain = url.hostname;
 		// * options: https://blog.jim-nielsen.com/2021/displaying-favicons-for-any-domain/
-		// const imageUrl = `https://icons.duckduckgo.com/ip3/${domain}.ico`; // more reliable
-		const imageUrl = `https://www.google.com/s2/favicons?domain=${domain}`; // "real" png
+		const imageUrl = `https://icons.duckduckgo.com/ip3/${domain}.ico`; // more reliable
+		// const imageUrl = `https://www.google.com/s2/favicons?domain=${domain}`; // "real" png
 
 		return `<img height="20" width="20" src="${imageUrl}" alt="${domain} favicon">`;
 	}
@@ -31,7 +31,7 @@ function Item(bookmark) {
 	return `
 <li>
 	<a href="${bookmark.url}" ${isPopup ? 'target="_blank"' : ""}>
-		<!-- ${Favicon(bookmark)} -->
+		${Favicon(bookmark)}
 		<span>${bookmark.title}</span>
 	</a>
 </li>`;
@@ -51,16 +51,59 @@ async function main(browser) {
 	const $main = document.getElementById("main");
 	if (!$main) throw new Error("No #main element found");
 
-	$main.innerHTML = "Loading...";
-
 	const tree = await browser.bookmarks.getTree();
-
 	const sorted = tree[0].children.sort((a, b) => {
 		return b.children?.length - a.children?.length;
 	});
 
-	$main.innerHTML = List(sorted);
-	$main.querySelector("details")?.setAttribute("open", "");
+	const $filter = document.createElement('input');
+	$filter.type = 'search';
+	$filter.placeholder = 'Filter...';
+	$filter.style.display = 'block';
+	$filter.style.margin = '10px auto';
+	$main.appendChild($filter);
+
+	const $listContainer = document.createElement('div');
+	$main.appendChild($listContainer);
+
+	renderBookmarks(sorted, $listContainer);
+
+	$filter.addEventListener('input', (e) => {
+		// @ts-ignore
+		const query = e.target?.value.toLowerCase();
+		const filtered = filterBookmarks(sorted, query);
+		renderBookmarks(filtered, $listContainer, true);
+	});
+}
+
+function filterBookmarks(bookmarks, query) {
+	if (!query) return bookmarks;
+
+	return bookmarks.map(bookmark => {
+		if (bookmark.children) {
+			const filteredChildren = filterBookmarks(bookmark.children, query);
+			return filteredChildren.length > 0
+				? { ...bookmark, children: filteredChildren }
+				: null;
+		}
+
+		return (bookmark.title.toLowerCase().includes(query) ||
+				bookmark.url?.toLowerCase().includes(query))
+			? bookmark
+			: null;
+	}).filter(Boolean);
+}
+
+function renderBookmarks(bookmarks, $container, openAll = false) {
+	$container.innerHTML = List(bookmarks);
+
+	if (openAll) {
+		$container.querySelectorAll('details').forEach(details => {
+			details.setAttribute('open', '');
+		});
+	} else {
+		$container.querySelector("details")?.setAttribute("open", "");
+	}
 }
 
 document.addEventListener("DOMContentLoaded", () => {
