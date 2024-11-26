@@ -57,6 +57,7 @@ async function main(browser) {
 	});
 
 	const $filter = document.createElement('input');
+	$filter.id = 'filter';
 	$filter.type = 'search';
 	$filter.placeholder = 'Filter...';
 	$filter.style.display = 'block';
@@ -74,6 +75,8 @@ async function main(browser) {
 		const filtered = filterBookmarks(sorted, query);
 		renderBookmarks(filtered, $listContainer, true);
 	});
+
+	$filter.focus();
 }
 
 function filterBookmarks(bookmarks, query) {
