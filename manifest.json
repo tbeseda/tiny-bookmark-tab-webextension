@@ -7,7 +7,8 @@
 	"author": "tbeseda",
 	"homepage_url": "https://github.com/tbeseda/tiny-bookmark-tab-webextension",
 	"permissions": [
-		"bookmarks"
+		"bookmarks",
+		"storage"
 	],
 	"chrome_url_overrides": {
 		"newtab": "tiny.html"

@@ -1,4 +1,7 @@
 let isPopup = false;
+let openFolders = new Set();
+let storage = null;
+let filtering = false;
 
 function Favicon(bookmark) {
 	const url = new URL(bookmark.url);
@@ -38,13 +41,41 @@ function Item(bookmark) {
 }
 
 function Folder(bookmark) {
+	const { id } = bookmark;
+	const open = openFolders.has(id) ? 'open' : '';
 	return `
 <li>
-	<details>
+	<details data-bookmark-id="${id}" ${open}>
 		<summary>${bookmark.title} (${bookmark.children.length})</summary>
 		${List(bookmark.children)}
 	</details>
 </li>`;
+}
+
+function filterBookmarks(bookmarks, query) {
+	if (!query) return bookmarks;
+
+	return bookmarks.map(bookmark => {
+		if (bookmark.children) {
+			const filteredChildren = filterBookmarks(bookmark.children, query);
+			return filteredChildren.length > 0
+				? { ...bookmark, children: filteredChildren }
+				: null;
+		}
+
+		return (bookmark.title.toLowerCase().includes(query) ||
+			bookmark.url?.toLowerCase().includes(query))
+			? bookmark
+			: null;
+	}).filter(Boolean);
+}
+
+function renderBookmarks(bookmarks, $container, openAll = false) {
+	$container.innerHTML = List(bookmarks);
+	const $details = $container.querySelectorAll('details');
+
+	if (openAll) for (const $d of $details) $d.setAttribute('open', '');
+	else if (openFolders.size === 0) $details[0]?.setAttribute('open', '');
 }
 
 async function main(browser) {
@@ -67,53 +98,61 @@ async function main(browser) {
 	const $listContainer = document.createElement('div');
 	$main.appendChild($listContainer);
 
+	const $reset = document.createElement('button');
+	$reset.textContent = 'Reset';
+	$reset.title = 'Clear saved folder state';
+	$reset.style.display = 'block';
+	$reset.style.margin = '0 auto 10px';
+	$reset.style.padding = '0.25rem 0.5rem';
+	$reset.style.cursor = 'pointer';
+	$main.appendChild($reset);
+
 	renderBookmarks(sorted, $listContainer);
 
+	$listContainer.addEventListener('toggle', (e) => {
+		if (filtering) return;
+		if (e.target && e.target instanceof HTMLDetailsElement) {
+			const id = e.target.dataset.bookmarkId;
+			if (e.target.open) {
+				openFolders.add(id);
+				storage.set({ openFolders: [...openFolders] });
+			}
+			else {
+				openFolders.delete(id);
+				storage.set({ openFolders: [...openFolders] });
+			}
+		}
+	}, true);
+
+
 	$filter.addEventListener('input', (e) => {
-		// @ts-ignore
-		const query = e.target?.value.toLowerCase();
+		const query = $filter.value.toLowerCase();
+		filtering = query.length > 0;
 		const filtered = filterBookmarks(sorted, query);
-		renderBookmarks(filtered, $listContainer, true);
+		renderBookmarks(filtered, $listContainer, filtering);
+	});
+
+	$reset.addEventListener('click', () => {
+		openFolders.clear();
+		storage.set({ openFolders: [] });
+		renderBookmarks(sorted, $listContainer);
 	});
 
 	$filter.focus();
 }
 
-function filterBookmarks(bookmarks, query) {
-	if (!query) return bookmarks;
-
-	return bookmarks.map(bookmark => {
-		if (bookmark.children) {
-			const filteredChildren = filterBookmarks(bookmark.children, query);
-			return filteredChildren.length > 0
-				? { ...bookmark, children: filteredChildren }
-				: null;
-		}
-
-		return (bookmark.title.toLowerCase().includes(query) ||
-				bookmark.url?.toLowerCase().includes(query))
-			? bookmark
-			: null;
-	}).filter(Boolean);
-}
-
-function renderBookmarks(bookmarks, $container, openAll = false) {
-	$container.innerHTML = List(bookmarks);
-
-	if (openAll) {
-		$container.querySelectorAll('details').forEach(details => {
-			details.setAttribute('open', '');
-		});
-	} else {
-		$container.querySelector("details")?.setAttribute("open", "");
-	}
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-	// @ts-ignore
+document.addEventListener('DOMContentLoaded', async () => {
+	// @ts-ignore these exist in the extension context
 	const chrome = window.chrome || window.browser;
 	if (!chrome) return false;
 
-	isPopup = chrome.extension.getViews({ type: "popup" })?.length > 0;
-	main(chrome); // Firefox has both, Chrome is missing browser
+	storage = chrome.storage.local;
+
+	const tab = await chrome.tabs.getCurrent();
+	isPopup = !tab;
+
+	const storageResult = await storage.get('openFolders');
+	openFolders = new Set(storageResult?.openFolders || []);
+
+	main(chrome);
 });
