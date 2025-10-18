@@ -29,4 +29,6 @@ There's an index.html and assets/tiny.js - two files. The way Tim intended.
 ## Release
 
 Create .zip with `assets/`, `manifest.json`, and `tiny.html`.  
-Update screenshots if needed.
+Update screenshots if needed.  
+Submit to [Chrome Web Store](https://chrome.google.com/webstore/devconsole/).  
+Submit to [Firefox Add-ons](https://addons.mozilla.org/en-US/developers/).

@@ -99,7 +99,7 @@ async function main(browser) {
 	$main.appendChild($listContainer);
 
 	const $reset = document.createElement('button');
-	$reset.textContent = 'Reset';
+	$reset.textContent = 'Collapse All';
 	$reset.title = 'Clear saved folder state';
 	$reset.style.display = 'block';
 	$reset.style.margin = '0 auto 10px';
